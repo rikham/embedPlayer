@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rockster Loader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="background-color:black;color:white;display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;margin:0;font-family:sans-serif;text-align:center;">
+    
+    <h1 id="status">Get Ready...</h1>
+    <p>Flip your phone over!</p>
+
+    <script>
+        // 1. Get the Video ID from the URL (e.g., ?v=12345)
+        const urlParams = new URLSearchParams(window.location.search);
+        const ytId = urlParams.get('v');
+
+        if (ytId) {
+            // 2. Wait 2 seconds (2000ms)
+            setTimeout(() => {
+                // 3. Redirect to the looping YouTube embed
+                window.location.href = `https://www.youtube.com/embed/${ytId}?autoplay=1&loop=1&playlist=${ytId}&controls=0`;
+            }, 2000);
+        } else {
+            document.getElementById('status').innerText = "Error: No Song ID";
+        }
+    </script>
+</body>
+</html>
