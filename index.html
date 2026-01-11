@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Rockster Loader</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
 <body style="background-color:black;color:white;display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;margin:0;font-family:sans-serif;text-align:center;">
     
-    <h1 id="status">Get Ready...</h1>
-    <p>Flip your phone over!</p>
+    <h1>Get Ready...</h1>
+    <p>Opening Spotify</p>
 
     <script>
-        // 1. Get the Video ID from the URL (e.g., ?v=12345)
         const urlParams = new URLSearchParams(window.location.search);
-        const ytId = urlParams.get('v');
+        const spotId = urlParams.get('v'); // We'll keep the 'v' parameter name for simplicity
 
-        if (ytId) {
-            // 2. Wait 2 seconds (2000ms)
+        if (spotId) {
             setTimeout(() => {
-                // 3. Redirect to the looping YouTube embed
-                window.location.href = `https://www.youtube.com/embed/${ytId}?autoplay=1&loop=1&playlist=${ytId}&controls=0`;
+                // This attempts to open the Spotify App directly (deep link)
+                // If the app isn't installed, it falls back to the web player
+                window.location.href = `spotify:track:${spotId}`;
+                
+                // Backup redirect for browsers that don't support deep links
+                setTimeout(() => {
+                    window.location.href = `https://open.spotify.com/track/${spotId}`;
+                }, 500);
             }, 2000);
         } else {
-            document.getElementById('status').innerText = "Error: No Song ID";
+            document.body.innerHTML = "<h1>Error: No Spotify ID</h1>";
         }
     </script>
 </body>
